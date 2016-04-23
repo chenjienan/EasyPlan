@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from application import app, db
+from app.database_module.models import User, Event, Survey
 from flask.ext.script import Manager, prompt_bool
 
 manager = Manager(app)
