@@ -1,10 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_restful import Api
+from settings import DB_URI
+from resources import UserResource
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = r'postgresql://postgres:Password1@localhost/easyplan'
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config.setdefault('SQLALCHEMY_TRACK_MODIFICATIONS', True)
 db = SQLAlchemy(app)
+api = Api(app)
+
+
+api.add_resource(UserResource, '/user/<int:id>')
 
 @app.route('/')
 def index():

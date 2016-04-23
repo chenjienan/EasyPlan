@@ -1,0 +1,1 @@
+DB_URI = r'postgresql://postgres:Password1@localhost/easyplan'
