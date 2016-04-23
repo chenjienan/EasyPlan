@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/test'
+app.config['SQLALCHEMY_DATABASE_URI'] = r'postgresql://postgres:Password1@localhost/easyplan'
 db = SQLAlchemy(app)
 
 @app.route('/')

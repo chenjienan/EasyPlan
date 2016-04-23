@@ -3,6 +3,8 @@ include/
 lib/
 .idea/
 database/
+__pycache__/
 
 .Python
+.pyc
 pip-selfcheck.json
