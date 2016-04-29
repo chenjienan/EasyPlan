@@ -1,6 +1,7 @@
 from app.database_module.models import User
 from app.database_module.db import session
 from flask_restful import Resource, reqparse, abort, fields, marshal_with
+from flask import request
 
 user_fields = {
     'username': fields.String,
@@ -20,7 +21,7 @@ class UserResource(Resource):
         user = session.query(User).filter(User.id == id).first()
         if not user:
             abort(404, message='User {} does not exist'.format(id))
-        return user
+        return user,200
 
     def delete(self, id):
         user = session.query(User).filter(User.id == id).first()
@@ -37,20 +38,20 @@ class UserResource(Resource):
         user.username = parsed_args['username']
         session.add(user)
         session.commit()
-        return user, 201
+        return user,201
 
 class UserListResource(Resource):
     @marshal_with(user_fields)
     def get(self):
         user = session.query(User).all()
-        return user
+        return user,200
 
-    @marshal_with(user_fields)
+    # @marshal_with(user_fields)
     def post(self):
-        parsed_args = parser.parse_args()
-        user = User(username=parsed_args['username'],
-                    password=parsed_args['password'],
-                    email=parsed_args['email'])
+        json_data = request.get_json(force=True)
+        user = User(username=json_data['username'],
+                    password=json_data['password'],
+                    email=json_data['email'])
         session.add(user)
         session.commit()
-        return user, 201
+        return 200
