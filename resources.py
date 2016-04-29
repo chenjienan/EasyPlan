@@ -46,7 +46,6 @@ class UserListResource(Resource):
         user = session.query(User).all()
         return user,200
 
-    # @marshal_with(user_fields)
     def post(self):
         json_data = request.get_json(force=True)
         user = User(username=json_data['username'],
