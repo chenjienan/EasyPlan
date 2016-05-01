@@ -33,7 +33,7 @@ class Event(Base):
     address = Column(String(255))
     description = Column(String(255))
 
-    def __init__(self, name=None):
+    def __init__(self, name=None,):
         self.event_name = name
 
     def __repr__(self):
