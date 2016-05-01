@@ -14,3 +14,10 @@
 1. Pull source code from github
 2. run command: virtualenv -p python3 EasyPlan
 3. Set up Virtualenv in PyCharm->File->Default Settings->Project Interpretator. Select Setting ->Add Local, and then choose the path  ~EasyPlan/bin/python.
+
+### Database Connection Instruction
+1. Create a DB called “easyplan” in PostgreSQL
+2. sudo ln -s /Library/PostgreSQL/9.5/lib/libssl.1.0.0.dylib /usr/local/lib
+3. sudo ln -s /Library/PostgreSQL/9.5/lib/libcrypto.1.0.0.dylib /usr/local/lib
+4. change the SQLALCHEMY_DATABASE_URI to r“postgresql://<username>:<password>@localhost/easyplan”in application.py
+5. run database_config.py
