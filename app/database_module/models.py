@@ -33,8 +33,15 @@ class Event(Base):
     address = Column(String(255))
     description = Column(String(255))
 
-    def __init__(self, name=None,):
-        self.event_name = name
+    def __init__(self, event_name=None, location=None, start_time=None, end_time=None, host=None,
+                 address=None, description=None):
+        self.event_name = event_name
+        self.location = location
+        self.start_time = start_time
+        self.end_time = end_time
+        self.host = host
+        self.address = address
+        self.description = description
 
     def __repr__(self):
         return '<Event %r>' % (self.eventname)
@@ -48,8 +55,11 @@ class Survey(Base):
     description = Column(String(255))
     event_id = Column(Integer)
 
-    def __init__(self, name=None):
-        self.survey_name = name
+    def __init__(self, survey_name=None, type=None, description=None, event_id=None):
+        self.survey_name = survey_name
+        self.type = type
+        self.description = description
+        self.event_id = event_id
 
     def __repr__(self):
         return '<Survey %r>' % (self.surveyname)

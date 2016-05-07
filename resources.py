@@ -45,16 +45,25 @@ class UserResource(Resource):
         if not user:
             abort(404, message='User {} does not exist'.format(id))
         session.delete(user)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return {}, 204
 
     @marshal_with(user_fields)
     def put(self, id):
         parsed_args = parser.parse_args()
         user = session.query(User).filter(User.id == id).first()
-        user.username = parsed_args['username']
+        json_data = request.get_json(format=True)
+        user = User(username=json_data['username'],
+                    password=json_data['password'],
+                    email=json_data['email'])
         session.add(user)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rolllback()
         return user,201
 
 class UserListResource(Resource):
@@ -69,7 +78,10 @@ class UserListResource(Resource):
                     password=json_data['password'],
                     email=json_data['email'])
         session.add(user)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return 200
 
 class EventResource(Resource):
@@ -85,21 +97,29 @@ class EventResource(Resource):
         if not event:
             abort(404, message='User {} does not exist'.format(id))
         session.delete(event)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rolllback()
         return {}, 204
 
     @marshal_with(event_fields)
     def put(self, id):
         event = session.query(Event).filter(Event.id == id).first()
         json_data = request.get_json(format=True)
-        event = Event(location = json_data["location"],
+        event = Event(
+                      event_name = json_data["event_name"],
+                      location = json_data["location"],
                       start_time = json_data['start_time'],
-                      end_time = json_data["end_start"],
+                      end_time = json_data["end_time"],
                       host = json_data["host"],
                       address = json_data["address"],
                       description = json_data["description"])
         session.add(event)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return event, 201
 
 class EventListResource(Resource):
@@ -111,15 +131,20 @@ class EventListResource(Resource):
     # @marshal_with(user_fields)
     def post(self):
         json_data = request.get_json(force=True)
-        event = Event(location = json_data["location"],
+        event = Event(
+                       event_name=json_data["event_name"],
+                      location = json_data["location"],
                       start_time = json_data['start_time'],
-                      end_time = json_data["end_start"],
+                      end_time = json_data["end_time"],
                       host = json_data["host"],
                       address = json_data["address"],
                       description = json_data["description"]
                     )
         session.add(event)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return 200
 
 class SurveyResource(Resource):
@@ -135,7 +160,10 @@ class SurveyResource(Resource):
         if not survey:
             abort(404, message='Survey {} does not exist'.format(id))
         session.delete(survey)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return {}, 204
 
     @marshal_with(survey_fields)
@@ -148,7 +176,10 @@ class SurveyResource(Resource):
                       eventid = json_data["eventid"]
                     )
         session.add(survey)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return survey, 201
 
 class SurveyListResource(Resource):
@@ -160,11 +191,14 @@ class SurveyListResource(Resource):
     # @marshal_with(user_fields)
     def post(self):
         json_data = request.get_json(force=True)
-        survey = Survey(surveyname = json_data["surveyname"],
+        survey = Survey(survey_name = json_data["surveyname"],
                       type = json_data['type'],
                       description = json_data["description"],
                       eventid = json_data["eventid"]
                     )
         session.add(survey)
-        session.commit()
+        try:
+            session.commit()
+        except:
+            session.rollback()
         return 200
