@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, DateTime, LargeBinary
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = 'user'
     __table_args__ = {"useexisting": True}
@@ -19,7 +20,8 @@ class User(Base):
         self.email = email
 
     def __repr__(self):
-        return '<User %r>' % (self.username)
+        return '<User %r>' % self.username
+
 
 class Event(Base):
     __tablename__ = 'event'
@@ -44,22 +46,23 @@ class Event(Base):
         self.description = description
 
     def __repr__(self):
-        return '<Event %r>' % (self.eventname)
+        return '<Event %r>' % self.event_name
+
 
 class Survey(Base):
     __tablename__ = 'survey'
     __table_args__ = {"useexisting": True}
-    id = Column(Integer,primary_key=True)
+    id = Column(Integer, primary_key=True)
     survey_name = Column(String(255))
     type = Column(Integer)
     description = Column(String(255))
     event_id = Column(Integer)
 
-    def __init__(self, survey_name=None, type=None, description=None, event_id=None):
+    def __init__(self, survey_name=None, survey_type=None, description=None, event_id=None):
         self.survey_name = survey_name
-        self.type = type
+        self.type = survey_type
         self.description = description
         self.event_id = event_id
 
     def __repr__(self):
-        return '<Survey %r>' % (self.surveyname)
+        return '<Survey %r>' % self.survey_name
