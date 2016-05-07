@@ -10,7 +10,7 @@ user_fields = {
 }
 
 event_fields = {
-    'eventname': fields.String,
+    'event_name': fields.String,
     'location': fields.String,
     'start_time': fields.DateTime,
     'end_time': fields.datetime,
@@ -20,7 +20,7 @@ event_fields = {
 }
 
 survey_fields = {
-    'surveyname' : fields.String,
+    'survey_name' : fields.String,
     'type': fields.String,
     'description': fields.String,
     'eventid': fields.String
@@ -170,7 +170,7 @@ class SurveyResource(Resource):
     def put(self, id):
         survey = session.query(Survey).filter(Survey.id == id).first()
         json_data = request.get_json(format=True)
-        survey = Survey(surveyname = json_data["surveyname"],
+        survey = Survey(survey_name = json_data["survey_name"],
                       type = json_data['type'],
                       description = json_data["description"],
                       eventid = json_data["eventid"]
@@ -191,7 +191,7 @@ class SurveyListResource(Resource):
     # @marshal_with(user_fields)
     def post(self):
         json_data = request.get_json(force=True)
-        survey = Survey(survey_name = json_data["surveyname"],
+        survey = Survey(survey_name = json_data["survey_name"],
                       type = json_data['type'],
                       description = json_data["description"],
                       eventid = json_data["eventid"]
