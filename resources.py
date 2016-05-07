@@ -20,7 +20,7 @@ event_fields = {
 }
 
 survey_fields = {
-    'survey_name' : fields.String,
+    'survey_name': fields.String,
     'type': fields.String,
     'description': fields.String,
     'eventid': fields.String
