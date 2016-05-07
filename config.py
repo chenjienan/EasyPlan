@@ -27,6 +27,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
 
+
 class HerokuConfig(ProductionConfig):
     @classmethod
     def init_app(cls, app):
