@@ -10,13 +10,67 @@ import React, {
 
 //Sign up page
 class SignupPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      firstName: '',
+      lastName: '',
+      pwd: '',
+      email:''
+    };
+  }
 	render() {
 		return(
 			<View style={styles.container}>
-				<Text style = {styles.title}>  I am signUp page </Text>
-			</View>
+				<Text style = {styles.title}>  Sign Up </Text>
+        <InputView value={this.state.email}
+          onChangeText={(email)=>this.setState({email})}
+          inputStyle={styles.input}
+          textStyle={styles.text}>
+          Email:
+        </InputView>
+
+        <InputView value={this.state.pwd}
+          onChangeText={(pwd)=>this.setState({pwd})}
+          inputStyle={styles.input}
+          textStyle={styles.text}
+          secureTextEntry={true}>
+          Password:
+        </InputView>
+
+        <InputView value={this.state.firstName}
+          onChangeText={(firstName)=>this.setState({firstName})}
+          inputStyle={styles.input}
+          textStyle={styles.text}>
+          First Name:
+        </InputView>
+
+        <InputView value={this.state.lastName}
+          onChangeText={(lastName)=>this.setState({lastName})}
+          inputStyle={styles.input}
+          textStyle={styles.text}>
+          Last Name:
+        </InputView>
+      </View>
 		);
 	}
+}
+
+class InputView extends Component {
+  render() {
+    var inputproperties = {
+      onChangeText: this.props.onChangeText,
+      value: this.props.value,
+      style: this.props.inputStyle,
+      secureTextEntry: this.props.secureTextEntry
+    };
+    return (
+      <View style={styles.inputView}>
+        <Text style={this.props.textStyle}>{this.props.children}</Text>
+        <TextInput {...inputproperties} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -35,17 +89,25 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
-  inputs: {
+  input: {
     width: 250, 
     height: 40, 
     marginTop: 20,
     backgroundColor: 'white', 
     borderWidth: 0,
   },
+  input_view: {
+    flexDirection: 'row',
+    width: 250, 
+    height: 40, 
+    marginTop: 20,
+  },
   text: {
-    textAlign: 'center',
-
-  }
+    paddingTop: 10,
+    textAlign: 'left',
+    fontSize: 15,
+    color: 'white',
+  },
 });
 
-module.exports = SignupPage;
+module.exports = [SignupPage,InputView]

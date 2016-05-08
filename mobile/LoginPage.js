@@ -12,7 +12,7 @@ import React, {
 } from 'react-native';
 
 var Button = require('./3rdParty/Button');
-var SignupPage = require('./SignupPage');
+var [SignupPage, Inputview] = require('./SignupPage');
 class LoginPage extends Component {
   constructor() {
     super();
@@ -46,22 +46,22 @@ class LoginPage extends Component {
         return(
           <View style={styles.container}>
           <Text style={styles.title}> Easy Planning </Text>
-          <View style={styles.input_view} >
-            <Text style={styles.text}> Uid:</Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={(username) => this.setState({username})}
-                value={this.state.username} />
-            </View>
+            <Inputview
+               onChangeText={(username) => this.setState({username})}
+               value={this.state.username}
+               inputStyle={styles.input}
+               textStyle = {styles.text} >
+              User Name:
+            </Inputview>
 
-            <View style={styles.input_view} >
-              <Text style={styles.text}> Pwd:</Text>
-                <TextInput
-                style={styles.input}
-                onChangeText={(password) => this.setState({password})}
-                value={this.state.password} 
-                secureTextEntry = {true} />
-            </View>
+            <Inputview
+              inputStyle={styles.input}
+              textStyle = {styles.text}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password} 
+              secureTextEntry = {true}>
+              Password:
+            </Inputview>
 
             <View style = {styles.buttons}>
                     <Button
