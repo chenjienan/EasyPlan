@@ -6,6 +6,7 @@ import React, {
   StyleSheet,
   Text,
   View,
+  ScollView,
   TextInput,
   TouchableHighlight,
 
@@ -23,7 +24,7 @@ class LoginPage extends Component {
     };
   }
 
-  onPressButton() {
+  onPressSignUpButton() {
     this.setState(
       {
       username: '',
@@ -31,6 +32,25 @@ class LoginPage extends Component {
       page: 1
       }
     );
+  }
+  onPressLoginButton() {
+    fetch('http://YOU_NEED_TO/FILL/THIS_ONE', {
+      method: 'POST',
+      headers: {
+       'Accept': 'application/json',
+       'Content-Type' : 'application/json'
+     },
+     body: JSON.stringify({
+        username: this.state.username,
+        pwd: this.state.password
+     })
+    }).then((response)=>response.text()).then((responseText)=>{
+      console.log("request success with response",responseText);
+    }).catch((error)=>{
+      
+      console.log("error: fail to connect to server");
+      
+    });
   }
   render() {
     switch(this.state.page) {
@@ -44,41 +64,43 @@ class LoginPage extends Component {
           );*/
       default:
         return(
-          <View style={styles.container}>
-          <Text style={styles.title}> Easy Planning </Text>
-            <Inputview
-               onChangeText={(username) => this.setState({username})}
-               value={this.state.username}
-               inputStyle={styles.input}
-               textStyle = {styles.text} >
-              User Name:
-            </Inputview>
+          //<ScollView style={{height: 250}>
+            <View style={styles.container}>
+            <Text style={styles.title}> Easy Planning </Text>
+              <Inputview
+                 onChangeText={(username) => this.setState({username})}
+                 value={this.state.username}
+                 inputStyle={styles.input}
+                 textStyle = {styles.text} >
+                User Name:
+              </Inputview>
 
-            <Inputview
-              inputStyle={styles.input}
-              textStyle = {styles.text}
-              onChangeText={(password) => this.setState({password})}
-              value={this.state.password} 
-              secureTextEntry = {true}>
-              Password:
-            </Inputview>
+              <Inputview
+                inputStyle={styles.input}
+                textStyle = {styles.text}
+                onChangeText={(password) => this.setState({password})}
+                value={this.state.password} 
+                secureTextEntry = {true}>
+                Password:
+              </Inputview>
 
-            <View style = {styles.buttons}>
-                    <Button
-                      onPress = {this.onPressButton.bind(this)}
-                      containerStyle={styles.Signup_button}
-                      style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
-                      Sign up
-                    </Button>
+             <View style = {styles.buttons}>
+                      <Button
+                        onPress = {this.onPressSignUpButton.bind(this)}
+                        containerStyle={styles.Signup_button}
+                        style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
+                        Sign up
+                     </Button>
 
-                    <Button
-                      onPress = {this.onPressButton.bind(this)}
-                      containerStyle={styles.Login_button}
-                      style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
-                      Log in
-                    </Button>
+                      <Button
+                       onPress = {this.onPressLoginButton.bind(this)}
+                        containerStyle={styles.Login_button}
+                        style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
+                        Log in
+                      </Button>
+              </View>
             </View>
-          </View>
+          //</ScollView>
         );
       }
   }

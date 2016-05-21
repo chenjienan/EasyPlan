@@ -7,6 +7,7 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+var Button = require('./3rdParty/Button');
 
 //Sign up page
 class SignupPage extends Component {
@@ -16,44 +17,76 @@ class SignupPage extends Component {
       firstName: '',
       lastName: '',
       pwd: '',
-      email:''
+      confirmPwd: '',
+      email: ''
     };
   }
 	render() {
 		return(
-			<View style={styles.container}>
-				<Text style = {styles.title}>  Sign Up </Text>
-        <InputView value={this.state.email}
-          onChangeText={(email)=>this.setState({email})}
-          inputStyle={styles.input}
-          textStyle={styles.text}>
-          Email:
-        </InputView>
+      <ScollView>
+			 <View style={styles.container}>
+		  		<Text style = {styles.title}>  Sign Up </Text>
+          <InputView value={this.state.email}
+            onChangeText={(email)=>this.setState({email})}
+            inputStyle={styles.input}
+            textStyle={styles.text}>
+            Email:
+          </InputView>
 
-        <InputView value={this.state.pwd}
-          onChangeText={(pwd)=>this.setState({pwd})}
-          inputStyle={styles.input}
-          textStyle={styles.text}
-          secureTextEntry={true}>
-          Password:
-        </InputView>
+          <InputView value={this.state.pwd}
+            onChangeText={(pwd)=>this.setState({pwd})}
+            inputStyle={styles.input}
+            textStyle={styles.text}
+            secureTextEntry={true}>
+            Password:
+          </InputView>
 
-        <InputView value={this.state.firstName}
-          onChangeText={(firstName)=>this.setState({firstName})}
-          inputStyle={styles.input}
-          textStyle={styles.text}>
-          First Name:
-        </InputView>
+          <InputView value={this.state.pwd}
+            onChangeText={(confirmPwd)=>this.setState({confirmPwd})}
+            inputStyle={styles.input}
+            textStyle={styles.text}
+            secureTextEntry={true}>
+            Confirm Password:
+          </InputView>
 
-        <InputView value={this.state.lastName}
-          onChangeText={(lastName)=>this.setState({lastName})}
-          inputStyle={styles.input}
-          textStyle={styles.text}>
-          Last Name:
-        </InputView>
-      </View>
+          <InputView value={this.state.firstName}
+            onChangeText={(firstName)=>this.setState({firstName})}
+            inputStyle={styles.input}
+            textStyle={styles.text}>
+            First Name:
+          </InputView>
+
+          <InputView value={this.state.lastName}
+            onChangeText={(lastName)=>this.setState({lastName})}
+            inputStyle={styles.input}
+            textStyle={styles.text}>
+            Last Name:
+          </InputView>
+          <View style = {styles.buttons}>
+                <Button
+                  onPress = {this.onPressSignUpButton.bind(this)}
+                  containerStyle={styles.SignUp_button}
+                  style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
+                  Sign up
+                </Button>
+
+                <Button
+                  onPress = {this.onPressCancelButton.bind(this)}
+                  containerStyle={styles.Cancel_button}
+                  style={{margin:8,fontSize: 15,alignItems: 'center', color: 'white'}}>
+                  Cancel
+                </Button>
+            </View>
+        </View>
+        </ScollView>
 		);
 	}
+  onPressSignUpButton() {
+
+  }
+  onPressCancelButton() {
+
+  }
 }
 
 class InputView extends Component {
@@ -62,7 +95,7 @@ class InputView extends Component {
       onChangeText: this.props.onChangeText,
       value: this.props.value,
       style: this.props.inputStyle,
-      secureTextEntry: this.props.secureTextEntry
+      secureTextEntry: this.props.secureTextEntry,
     };
     return (
       <View style={styles.inputView}>
@@ -107,6 +140,22 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 15,
     color: 'white',
+  },
+  SignUp_button: {
+    marginTop:20, 
+    height:35, 
+    overflow:'hidden', 
+    alignItems: 'flex-start',
+    borderRadius:4, 
+    backgroundColor: 'green',
+  },
+  Cancel_button: {
+    marginTop:20, 
+    height:35, 
+    overflow:'hidden', 
+    alignItems: 'flex-end', 
+    borderRadius:4, 
+    backgroundColor: 'red',
   },
 });
 
