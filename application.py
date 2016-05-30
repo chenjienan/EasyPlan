@@ -120,8 +120,6 @@ def logout():
     user = current_user
     try:
         user.authenticated = False
-        db.session.add(user)
-        db.session.commit()
         logout_user()
     except UnmappedInstanceError:
         pass
