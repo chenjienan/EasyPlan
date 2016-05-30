@@ -1,6 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, LargeBinary
-
 Base = declarative_base()
 
 
@@ -22,6 +21,21 @@ class User(Base):
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.email
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
 
 class Event(Base):
     __tablename__ = 'event'
@@ -66,3 +80,4 @@ class Survey(Base):
 
     def __repr__(self):
         return '<Survey %r>' % self.survey_name
+
