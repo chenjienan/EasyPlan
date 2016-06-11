@@ -33,22 +33,29 @@ class LoginPage extends Component {
       }
     );
   }
+  changeState0(page_num) {
+    this.setState({
+      username: "",
+      password: "",
+      page: page_num
+    });
+  }
   onPressLoginButton() {
-    fetch('http://YOU_NEED_TO/FILL/THIS_ONE', {
+    fetch('https://172.16.23.255:5000/login', {
       method: 'POST',
       headers: {
        'Accept': 'application/json',
        'Content-Type' : 'application/json'
      },
      body: JSON.stringify({
-        username: this.state.username,
-        pwd: this.state.password
+        'username': this.state.username,
+        'password': this.state.password
      })
     }).then((response)=>response.text()).then((responseText)=>{
       console.log("request success with response",responseText);
     }).catch((error)=>{
       
-      console.log("error: fail to connect to server");
+      console.log(error);
       
     });
   }
@@ -56,7 +63,7 @@ class LoginPage extends Component {
     switch(this.state.page) {
       case 1:
       return (
-        <SignupPage />
+        <SignupPage callBack={this.changeState0.bind(this)} />
       );
       /*case 2:
         return(

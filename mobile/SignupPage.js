@@ -5,9 +5,11 @@ import React, {
   View,
   TextInput,
   TouchableHighlight,
+  ScrollView,
 } from 'react-native';
 
 var Button = require('./3rdParty/Button');
+var LoginPage = require('./LoginPage');
 
 //Sign up page
 class SignupPage extends Component {
@@ -21,27 +23,33 @@ class SignupPage extends Component {
       email: ''
     };
   }
-	render() {
-		return(
-      <ScollView>
-			 <View style={styles.container}>
-		  		<Text style = {styles.title}>  Sign Up </Text>
-          <InputView value={this.state.email}
-            onChangeText={(email)=>this.setState({email})}
-            inputStyle={styles.input}
-            textStyle={styles.text}>
-            Email:
-          </InputView>
 
-          <InputView value={this.state.pwd}
-            onChangeText={(pwd)=>this.setState({pwd})}
-            inputStyle={styles.input}
-            textStyle={styles.text}
+   
+
+	render() {
+		  return(
+        <View style={styles.container}>
+          <ScrollView 
+          ref='scrollView' 
+          keyboardDismissMode='interactive' 
+          style={styles.scrollView} 
+          contentContainerStyle={styles.contentContainerStyle}>
+		    		<Text style = {styles.title}>  Sign Up </Text>
+            <InputView value={this.state.email}
+             onChangeText={(email)=>this.setState({email})}
+               inputStyle={styles.input}
+              textStyle={styles.text}>
+              Email:
+            </InputView>
+           <InputView value={this.state.pwd}
+              onChangeText={(pwd)=>this.setState({pwd})}
+              inputStyle={styles.input}
+              textStyle={styles.text}
             secureTextEntry={true}>
             Password:
           </InputView>
 
-          <InputView value={this.state.pwd}
+          <InputView value={this.state.confirmPwd}
             onChangeText={(confirmPwd)=>this.setState({confirmPwd})}
             inputStyle={styles.input}
             textStyle={styles.text}
@@ -77,15 +85,16 @@ class SignupPage extends Component {
                   Cancel
                 </Button>
             </View>
+          </ScrollView>
         </View>
-        </ScollView>
 		);
 	}
   onPressSignUpButton() {
-
+    console.log(this.props);
+    this.props.callBack(0);
   }
   onPressCancelButton() {
-
+    this.props.callBack(0);
   }
 }
 
@@ -107,6 +116,12 @@ class InputView extends Component {
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    height: 300,
+  },
+  contentContainerStyle: {
+    flex: 0,
+  },
 	container: {
     flex: 1,
     alignItems: 'center',
