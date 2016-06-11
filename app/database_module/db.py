@@ -7,4 +7,4 @@ Session = sessionmaker(autocommit=False,
                        autoflush=False,
                        bind=create_engine(DB_URI))
 
-session = scoped_session(Session)
+base_session = scoped_session(Session)

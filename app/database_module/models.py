@@ -1,5 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, LargeBinary
+from werkzeug.security import generate_password_hash, check_password_hash
 Base = declarative_base()
 
 
@@ -15,7 +16,7 @@ class User(Base):
 
     def __init__(self, username=None, password=None, email=None):
         self.username = username
-        self.password = password
+        self.set_password(password)
         self.email = email
 
     def __repr__(self):
@@ -36,6 +37,12 @@ class User(Base):
     def is_anonymous(self):
         """False, as anonymous users aren't supported."""
         return False
+
+    def set_password(self, secret):
+        self.password = generate_password_hash(secret)
+
+    def check_password(self, secret):
+        return check_password_hash(self.password, secret)
 
 class Event(Base):
     __tablename__ = 'event'

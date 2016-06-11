@@ -1,5 +1,6 @@
 from flask import Flask,request,session,jsonify,url_for,render_template,redirect
 from sqlalchemy.orm.exc import UnmappedInstanceError
+from app.database_module.db import base_session
 from flask_login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin,
                             confirm_login, fresh_login_required)
@@ -93,19 +94,33 @@ def user_loader(user_id):
     """
     return User.query.get(user_id)
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["POST"])
 def login():
     """For GET requests, display the login form. For POSTS, login the current user
     by processing the form."""
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.get(form.username.data)
-        if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
-                user.authenticated = True
-                login_user(user, remember=True)
-                return redirect(url_for("app.secret"))
-    return 500
+    # form = LoginForm()
+    # if form.validate_on_submit():
+    #     user = User.query.get(form.username.data)
+    #     if user:
+    #         if bcrypt.check_password_hash(user.password, form.password.data):
+    #             user.authenticated = True
+    #             login_user(user, remember=True)
+    #             return redirect(url_for("app.secret"))
+    # return 500
+
+    json_data = request.get_json(force=True)
+    password = json_data['password']
+    user = base_session.query(User).filter_by(username=json_data['username']).first()
+    if user:
+        if user.check_password(password):
+            user.authenticated = True
+            login_user(user,remember=True)
+            response = "diu"
+            return response, 200
+        else:
+            return 400
+    else:
+        return 400
 
 @app.route("/secret")
 @fresh_login_required
