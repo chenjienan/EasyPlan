@@ -118,6 +118,7 @@ class InputView extends Component {
 const styles = StyleSheet.create({
   scrollView: {
     height: 300,
+    width: 250
   },
   contentContainerStyle: {
     flex: 0,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
 
   input: {
     width: 250, 
-    height: 40, 
+    height: 25, 
     marginTop: 20,
     backgroundColor: 'white', 
     borderWidth: 0,

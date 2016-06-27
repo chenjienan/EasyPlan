@@ -41,7 +41,7 @@ class LoginPage extends Component {
     });
   }
   onPressLoginButton() {
-    fetch('https://172.16.23.255:5000/login', {
+    fetch('http://172.16.21.55:5000/login', {
       method: 'POST',
       headers: {
        'Accept': 'application/json',
@@ -71,7 +71,6 @@ class LoginPage extends Component {
           );*/
       default:
         return(
-          //<ScollView style={{height: 250}>
             <View style={styles.container}>
             <Text style={styles.title}> Easy Planning </Text>
               <Inputview
@@ -142,8 +141,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   input: {
-    width: 200, 
-    height: 40, 
+    width: 250, 
+    height: 25, 
     backgroundColor: 'white', 
     borderWidth: 0,
   },
