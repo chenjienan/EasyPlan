@@ -157,4 +157,4 @@ def get_oauth_token():
     return session.get('remote_oauth')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="172.16.21.55",port=5000)
